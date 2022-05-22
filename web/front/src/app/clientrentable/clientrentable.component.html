@@ -1,0 +1,22 @@
+<div class="table-responsive">
+  <div class="title" style="text-align: center; font-size: 16px; margin-bottom: 20px">
+    <span> Les totaux vendus pour chaque client </span>
+    <br>
+    <div> Les client le plus rentable est <span style="font-weight: bold">{{client_rentable}}</span></div>
+  </div>
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">Nom du client</th>
+      <th scope="col">Totaux</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <tr *ngFor="let list_m of list_rentabl_client">
+      <td>{{list_m.nomClient}}</td>
+      <td>{{list_m.totaux}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>

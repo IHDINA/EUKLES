@@ -1,0 +1,75 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <div class="title" style="text-align: center; font-size: 16px; margin-top: 20px;margin-bottom: 20px">
+        <span>Formulaire pour ajouter un nouveau matériel.</span>
+      </div>
+      <div class="adding-form d-flex justify-content-center align-items-center">
+        <form  #form="ngForm" [formGroup]="createMatForm" (ngSubmit)="createMat(form.value)">
+          <div formGroupName="materielData">
+            <div class="form-group">
+              <label for="quantity">Nom du materiel</label>
+              <input type="text" class="form-control" id="materielName" placeholder="Nom du materiel" name="matname"
+                     formControlName="materielName">
+              <small
+                *ngIf="createMatForm.get('materielData.materielName').hasError('required') && createMatForm.get('materielData.materielName').touched"
+                class="help-block" style="color: red !important;">Vous devez saisir le nom du materiel</small>
+            </div>
+            <div class="form-group">
+              <label for="price">Prix</label>
+              <input type="text" class="form-control" id="price" placeholder="Prix du matériel" formControlName="pricName" name="price">
+              <small
+                *ngIf="createMatForm.get('materielData.pricName').hasError('required') && createMatForm.get('materielData.pricName').touched"
+                class="help-block" style="color: red !important;">Vous devez saisir le prix</small>
+              <small *ngIf="createMatForm.get('materielData.pricName').hasError('pattern')"
+                     class="help-block" style="color: red !important;">Vous devez saisir un prix correct</small>
+            </div>
+          </div>
+          <button [disabled]="createMatForm.invalid" type="submit" class="btn btn-primary">Ajouter un matériel</button>
+        </form>
+      </div>
+    </div>
+    <div class="col">
+      <div class="title" style="text-align: center; font-size: 16px; margin-top: 20px;margin-bottom: 20px">
+        <span>Affecter un materiel à un client.</span>
+      </div>
+      <div class="adding-form d-flex justify-content-center align-items-center">
+        <form  #f="ngForm" [formGroup]="createLienForm" (ngSubmit)="onSubmit(f.value)">
+          <div formGroupName="lienData">
+            <div class="form-group">
+              <label for="clientList">Liste des clients</label>
+              <select class="form-control" name="select-client" id="clientList" [(ngModel)]="selectedItemClient" formControlName="clientListName">
+                <option [ngValue]="undefined" disabled selected>Choisir un client</option>
+                <option *ngFor="let item of list_all_clients" [ngValue]="item?.id">{{item?.nomClient}}</option>
+              </select>
+              <small
+                *ngIf="!createLienForm.get('lienData.clientListName').valid && createLienForm.get('lienData.clientListName').touched"
+                class="help-block" style="color: red !important;">Vous devez choisir un client</small>
+            </div>
+            <div class="form-group">
+              <label for="materialList">Liste des materiels</label>
+              <select class="form-control" name="select-material" id="materialList" [(ngModel)]="selectedItemMateriel" formControlName="materielListName">
+                <option [ngValue]="undefined" disabled selected>Choisir le materiel</option>
+                <option *ngFor="let item of list_all_materials" [ngValue]="item?.id">{{item?.nom}}</option>
+              </select>
+              <small
+                *ngIf="!createLienForm.get('lienData.materielListName').valid && createLienForm.get('lienData.materielListName').touched"
+                class="help-block" style="color: red !important;">Vous devez choisir un matériel</small>
+            </div>
+            <div class="form-group">
+              <label for="quantity">Quantité</label>
+              <input type="number" class="form-control" id="quantity" placeholder="Quantité du matérials" name = "quantity"
+                     formControlName="quantityName">
+              <small
+                *ngIf="createLienForm.get('lienData.quantityName').hasError('required') && createLienForm.get('lienData.quantityName').touched"
+                class="help-block" style="color: red !important;">Vous devez saisir la quantité</small>
+              <small *ngIf="createLienForm.get('lienData.quantityName').hasError('pattern')"
+                     class="help-block" style="color: red !important;">Vous devez saisir une quantité supérieur à
+                zero </small>
+            </div>
+          </div>
+          <button [disabled]="createLienForm.invalid" type="submit" class="btn btn-primary">Affecter le matériel</button>
+        </form>
+      </div>
+    </div>
+  </div>

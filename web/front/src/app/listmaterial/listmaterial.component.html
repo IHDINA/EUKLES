@@ -1,0 +1,26 @@
+<div class="table-responsive">
+  <div class="title" style="text-align: center; font-size: 16px; margin-bottom: 20px">
+    <span> Les enregistrements dont les clients ont plus de 30 matériels, et dont le matériel vendu est supérieur à 30.000 euros.</span>
+  </div>
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">ID Client</th>
+      <th scope="col">Nom du client</th>
+      <th scope="col">Ville</th>
+      <th scope="col">Material</th>
+      <th scope="col">Prix/euros</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <tr *ngFor="let list_m of list_meterials">
+      <td>{{list_m.id}}</td>
+      <td>{{list_m.nomClient}}</td>
+      <td>{{list_m.ville}}</td>
+      <td>{{list_m.nom}}</td>
+      <td>{{list_m.prix}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
