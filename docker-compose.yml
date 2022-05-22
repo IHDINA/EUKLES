@@ -1,0 +1,53 @@
+version: '3'
+
+services:
+
+    # nginx
+    nginx-service:
+        build: ./docker/nginx
+        container_name: nginx-container
+        ports:
+            - "80:80"
+        volumes:
+            - ./web/back:/var/www/project/backend
+            - ./web/front:/var/www/project/frontend
+            - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+            - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf
+        links:
+            - php74-service
+    # php
+    php74-service:
+        build: ./docker/php
+        container_name: php74-container
+        ports:
+            - "9000:9000"
+        volumes:
+            - ./web/back:/var/www/project/backend
+        links:
+            - mysql8-service
+        extra_hosts:
+            - "docker.host:127.0.0.1"
+    # mysql
+    mysql8-service:
+        image: mysql:8
+        container_name: mysql8-container
+        ports:
+            - "4306:3306"
+        volumes:
+            - ./mysql:/var/lib/mysql
+            - ./docker/eukles.sql:/data/application/init.sql
+        command: --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+        restart: always # always restart unless stopped manually
+        environment:
+            MYSQL_ROOT_PASSWORD: secret
+            MYSQL_PASSWORD: secret
+
+    # node
+    node:
+        container_name: angular_container
+        build: ./web/front
+        ports:
+            - "4200:4200"
+        volumes:
+            - ./web/front:/var/www/project/frontend
+            - ./web/front/node_modules:/var/www/project/frontend/node_modules
