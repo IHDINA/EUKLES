@@ -15,7 +15,7 @@ This is an application which expose certain endpoints on backend and it consume 
 
 ### Requirements
 	- Docker
-  - npm
+  	- npm
 
 ### Docker-compose built images:
   - nginx-service : Nginx webserver container
