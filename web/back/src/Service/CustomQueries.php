@@ -44,7 +44,7 @@ class CustomQueries  {
   }
 
   /**
-   * Geet t
+   * Geet rentable client from DB
    *
    * @param float $price
    * @param int $qte
